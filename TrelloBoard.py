@@ -54,33 +54,31 @@ class TrelloBoard:
                 board_data[board['name']] = board['id']
             return board_data
         else:
-            console.print(f"Error with URL : {response.status_code}")
+            console.print(f"{response.status_code} : No board found or all boards are closed")
 
     # SETS current board to use
     # for all other requests
     # changes self.auth["idBoard"] to current board id
     def set_board_ID(self):
         available_boards = self.get_available_board_ID()
-        # console.print('Which board would you like to use?')
+        if available_boards == None:
+            console.print("Please create a board first and then run this program again ! Bye :wave:")
+            exit(0)
+            return
+
+
+        # Table to display all the boards
         table = Table(title="Which board would you like to use?" , expand = False ,padding = (0,3))
         table.add_column("Board Number" , style="bold cyan" , justify="right") 
         table.add_column("Board Name" , justify="center")
 
         for i in range(len(available_boards)):
-            #console.print(f'{i + 1}. {list(available_boards.keys())[i]}')
             table.add_row(f'{i + 1}', f'{list(available_boards.keys())[i]}')
 
         console.print(table)
 
         reply = Prompt.ask("Enter Board number" , choices = [str(i) for i in range(1,len(available_boards)+1)] , show_choices = False)
         reply = int(reply) -1
-        # total = range(len(available_boards))
-        # while True:
-        #     reply = int(input('Enter Board number :')) - 1
-        #     if reply not in total:
-        #         console.print('Please enter an appropriate value.')
-        #     else:
-        #         break
         console.clear()
         
         board_name = list(available_boards.keys())[reply]
@@ -103,26 +101,17 @@ class TrelloBoard:
     # returns list id
     def choose_list(self):
         lists = self.get_available_lists()
-        # console.print('Which list would you like to add a card to?')
+        # Table of Options
         table = Table(title="Which list would you like to add a card to?" , expand = False ,padding = (0,3))
         table.add_column("List No." , style="bold cyan" , justify="right") 
         table.add_column("List Name" , justify="center")
         for i in range(len(lists)):
-            # console.print(f'{i + 1}. {lists[i]["name"]}')
             table.add_row(f'{i + 1}', f'{lists[i]["name"]}')
-
         console.print(table)
         
+        # Using promt to get user input
         reply = Prompt.ask("Enter List number" , choices = [str(i) for i in range(1,len(lists)+1)] , show_choices = False)
         reply = int(reply) -1
-        # total = range(len(lists))
-        # while True:
-        #     reply = int(input('Enter List number :')) - 1
-        #     if reply not in total:
-        #         console.print('Please enter an appropriate value.')
-        #     else:
-        #         break
-
         return lists[reply]["id"] , lists[reply]["name"]
 
 

@@ -6,6 +6,7 @@ A Command Line interface for adding cards to a Trello Board
 - Python 3
 - Requests : Python package to send requests
 - json     : Package to handle json responses 
+- rich     : Python module for cleaner CLI outputs and tables
 
 ## SET UP
 In order to run this CLI , you would have to first get a API key and token. Please follow the bellow steps:
@@ -19,8 +20,19 @@ In order to run this CLI , you would have to first get a API key and token. Plea
 
 
 ## Running
-Make sure you have Python3 installed . Run
+Make sure you have Python3 installed . 
+Please follow SET UP , before running.
+Run
 `
 Python3 main.py
 `
 and Follow on screen instructions
+
+## Next developement Steps
+
+- Add functionality to create boards
+- Add option to view all cards present on given board (Visual representation of cards present)
+- functionality to switch boards 
+- Add Updation of cards already added
+- Add Mutli line comments and include the addition of media into cards
+
