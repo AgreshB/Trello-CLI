@@ -72,7 +72,7 @@ class TrelloBoard:
 
         console.print(table)
 
-        reply = Prompt.ask("Enter Board number :" , choices = [str(i) for i in range(1,len(available_boards)+1)] , show_choices = False)
+        reply = Prompt.ask("Enter Board number" , choices = [str(i) for i in range(1,len(available_boards)+1)] , show_choices = False)
         reply = int(reply) -1
         # total = range(len(available_boards))
         # while True:
@@ -113,7 +113,7 @@ class TrelloBoard:
 
         console.print(table)
         
-        reply = Prompt.ask("Enter List number :" , choices = [str(i) for i in range(1,len(lists)+1)] , show_choices = False)
+        reply = Prompt.ask("Enter List number" , choices = [str(i) for i in range(1,len(lists)+1)] , show_choices = False)
         reply = int(reply) -1
         # total = range(len(lists))
         # while True:
@@ -177,7 +177,7 @@ class TrelloBoard:
         reply = -1
         result = []
         while True:
-            reply = input('Enter Label number(s) (Enter mutiple labels seperated by ,) :')
+            reply = input('Enter Label number(s) (Enter mutiple labels seperated by ,)')
             result = [int(x) -1 for x in str(reply).split(',')]
             if any(x < 0 or x > total for x in result):
                 console.print('Please enter an appropriate value.')
