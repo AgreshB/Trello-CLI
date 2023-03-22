@@ -20,8 +20,13 @@ In order to run this CLI , you would have to first get a API key and token. Plea
 
 
 ## Running
-Make sure you have Python3 installed . 
 Please follow SET UP , before running.
+<br>
+Make sure you have Python3 installed . Install all pre-requisites for the file: <br>
+`
+pip3 install -r requirements.txt
+`
+<br>
 Run
 `
 Python3 main.py

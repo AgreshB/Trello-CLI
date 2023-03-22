@@ -25,7 +25,8 @@ The class has the following API:
 The class has following methods for creation of cards:
     - choose_list() : returns the ID of the list the user wants to use
     - choose_label() : returns the ID of the label the user wants to use
-    - add_comment() : adds a comment to the card
+    - add_comment() : add one or more comments to the card
+    - create_card() : creates a card in the board
 
 '''
 class TrelloBoard:
@@ -140,23 +141,13 @@ class TrelloBoard:
             table.add_row("[yellow]3", "Current")
             table.add_row("[red]4", "To Do")
             console.print(table)
-            # console.print('What would you like to label this card as? Please choose a number.\n')
-            # console.print("[blue]1. General\n")
-            # console.print("[green]2. Completed\n")
-            # console.print("[yellow]3. Current\n")
-            # console.print("[red]4. Tod Do\n")
 
             color = ['blue', 'green', 'yellow', 'red']
             total = 4
         else:
-
-            # console.print('What would you like to label this card as? Please choose a number.\n')
             total = len(labels)
             for i in range(total):
-                # console.print(f'{i + 1}. [{labels[i]["color"]}]{labels[i]["color"]} {labels[i]["name"]}')
                 table.add_row(f'{i + 1}', f'[{labels[i]["color"]}]{labels[i]["color"]} {labels[i]["name"]}')
-
-
             color = []
             for i in range(len(labels)):
                 color.append(labels[i]["color"])
@@ -284,12 +275,9 @@ class TrelloBoard:
         table.add_column("Card id."  , justify="center")
         table.add_column("Card details" , justify="center")
         for i in range(len(cards)):
-            # console.print(f'{i + 1}. {self.print_card(cards[i])}')
             c_id , c_dets = self.print_card(cards[i])
             table.add_row(f'{i + 1}', c_id, c_dets)
 
-        
-        # console.print(f'{i+2}.  Delete All Cards')
         table.add_row(f'{i+2}', 'Delete All Cards')
         console.print(table)
 

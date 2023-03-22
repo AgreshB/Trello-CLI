@@ -4,8 +4,8 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.table import Table
 
-key = 'e51da6d9d2c8f1a23fd46eb57e8da518'
-token = 'ATTA18a8f417a3a0e32bda2b35f83634fd078a4fa51a704e0b4a867aaed24249637851FB53CE'
+key = ''
+token = ''
 
 
 console.clear()
@@ -20,7 +20,7 @@ table = Table("Select Action to Perform", expand = False ,padding = (0,3))
 table.add_row("1. Create Card")
 table.add_row("2. Delete Card")
 
-
+# Conitnuous Menu
 while True:
     console.clear()
     console.print(Panel(" [bold red] WELCOME TO TRELLO [/]", title="Welcome", title_align="center", border_style="bold purple" , highlight=True,expand= False, padding=(1, 10)))
@@ -36,5 +36,7 @@ while True:
         console.clear()
         trello.delete_cards()
 
+
+# Exit panel
 console.clear()
 console.print(Panel(" [bold red] CLOSING TRELLO CLI :wave: [/]", title="Thank you", title_align="center", border_style="bold purple" , highlight=True,expand= False, padding=(1, 10)))
