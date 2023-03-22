@@ -12,11 +12,12 @@ The class has the following API:
     - set_board_ID() : sets the board ID to use for the rest of the API
     - get_available_lists() : returns a list of all the lists in the board
     - post_comment() : posts a comment to the card
+    - delete_single_card() : deletes a single card
+    - get_all_cards() : returns a list of all the cards in the board
 
 The class has following methods for creation of cards:
     - choose_list() : returns the ID of the list the user wants to use
     - choose_label() : returns the ID of the label the user wants to use
-   
     - add_comment() : adds a comment to the card
 
 '''
@@ -181,21 +182,62 @@ class TrelloBoard:
         
 
     # Helpers to have
-
+    
     #### @API
+    # delete signle card
     def delete_single_card(self,card_id):
-        # delete signle card
-        return
+        url = self.url + "/cards/" + card_id
+        data = self.auth.copy()
+        response = requests.request("DELETE", url, params=data)
+        if response.status_code != 200:
+            print(f'Error in deleting card : {response.status_code}')
+            return False
+        return True
 
+    # print card details
+    # card is card json object
     def print_card(self, card):
-        # print card details
-        # card is card json object
-        return
+        all_labels = [lab["color"] for  lab in card["labels"]]
+        return f'Card ID : {card["id"]} \t Name : {card["name"]} \t Label: {all_labels}'
+    
+    #### @API
+    # returns all cards on current board
+    def get_all_cards(self): 
+        data = self.auth.copy()
+        card_url = self.url + "/boards/" + self.auth["idBoard"] + "/cards"
+        response = requests.get(url=card_url, data=data)
+        if response.status_code == 200:
+            return json.loads(response.text)
+        else:
+            print(response.status_code)
 
-    def get_all_cards(self):
-        # returns all cards on current board
-        return
-            
+    # delete one or more cards on current board    
     def delete_cards(self):
-        # delete one or more cards on current board 
-        return
+        cards = self.get_all_cards()
+        if not cards:
+            print('No cards found')
+            return
+
+        for i in range(len(cards)):
+            print(f'{i + 1}. {self.print_card(cards[i])}')
+        
+        print(f'{i+2}.  Delete All Cards')
+        reply = -1
+        total = range(len(cards)+ 1)
+        while True:
+            reply = int(input('Enter Card number to delete (Or 0 to exit):')) - 1
+
+            if reply == -1:
+                return
+            if reply not in total:
+                print('Please enter an appropriate value.')
+            else:
+                break
+
+        if reply == len(cards):
+            for card in cards:
+                self.delete_single_card(card["id"])
+        else:
+            self.delete_single_card(cards[reply]["id"])
+        
+        print('Card Deleted Successfully')
